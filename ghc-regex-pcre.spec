@@ -22,6 +22,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_noautocompressdoc	*.haddock
 
 %description
+The PCRE backend to accompany regex-base, see www.pcre.org.
 
 %package prof
 Summary:	Profiling %{pkgname} library for GHC
