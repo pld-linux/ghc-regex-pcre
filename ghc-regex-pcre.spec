@@ -30,7 +30,7 @@ BuildRequires:	ghc-regex-base-prof >= 0.93
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 Requires(post,postun):	/usr/bin/ghc-pkg
-%requires_releq	ghc
+%requires_eq	ghc
 Requires:	ghc-array
 Requires:	ghc-base >= 3.0
 Requires:	ghc-bytestring
