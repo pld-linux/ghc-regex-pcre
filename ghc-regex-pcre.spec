@@ -6,13 +6,14 @@
 Summary:	Replaces/Enhances Text.Regex
 Summary(pl.UTF-8):	Rozszerzenie Text.Regex
 Name:		ghc-%{pkgname}
-Version:	0.94.4
-Release:	2
+Version:	0.95.0.0
+Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/regex-pcre
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	be3794c67959f2b3b840bd026ef0b9ea
+# Source0-md5:	a9dcdff506937df7fadb563a030b508b
+Patch0:		ghc-8.10.patch
 URL:		http://hackage.haskell.org/package/regex-pcre
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-array
@@ -72,6 +73,7 @@ kiedy potrzebujemy systemu profilującego z GHC.
 
 %prep
 %setup -q -n %{pkgname}-%{version}
+%patch0 -p1
 
 %build
 runhaskell Setup.hs configure -v2 \
@@ -112,21 +114,28 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{name}-%{version}-doc/*
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSregex-pcre-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSregex-pcre-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSregex-pcre-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSregex-pcre-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSregex-pcre-%{version}-*_p.a
 
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/ByteString
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/ByteString/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/ByteString/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSregex-pcre-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSregex-pcre-%{version}-*_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Text/Regex/PCRE/ByteString/*.p_hi
