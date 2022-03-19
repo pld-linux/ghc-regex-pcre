@@ -7,7 +7,7 @@ Summary:	Replaces/Enhances Text.Regex
 Summary(pl.UTF-8):	Rozszerzenie Text.Regex
 Name:		ghc-%{pkgname}
 Version:	0.95.0.0
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/regex-pcre
